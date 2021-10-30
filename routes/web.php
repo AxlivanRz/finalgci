@@ -7,6 +7,7 @@ use App\Http\Controllers\InstrumentosController;
 use App\Http\Controllers\TemasController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\InstructorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,3 +31,7 @@ Route::resource('/Curso/Instrumentos', InstrumentosController::class)->middlewar
 Route::resource('/Curso/Temas', TemasController::class)->middleware('auth');
 Route::resource('/User', UsuarioController::class);
 Route::resource('/Roles', RolController::class);
+
+Route::view('Curso/Instructor', [CursoController::class, 'insertInstructor'])->name('curso.instructor');
+Route::post('Curso/Instructor', [CursoController::class, 'selectInstructor'])->name('curso.selectInstructor');
+Route::get('Curso/Instructor', [UsuarioController::class,  'getDataUser'])->name('usuario.getData');

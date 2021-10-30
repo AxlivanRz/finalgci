@@ -9,15 +9,15 @@ use App\Models\User;
 
 class Permisos extends Model
 {
-    protected $table = 'tbl_permiso';
-    protected $primaryKey = 'id_Permiso';
+    protected $table = 'tbl_permisos';
+    protected $primaryKey = 'id_permiso';
     public $incrementing = true;
     //protected $keyType = 'string';
     public $timestamps = false;
     //const CREATED_AT = 'fecha_captura';
     //const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = [
-     'nombre_Permiso' ,'slug'
+        'nombre_permiso', 'slug_permiso'
     ];
     public function roles()
     {

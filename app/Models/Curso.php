@@ -15,9 +15,22 @@ class Curso extends Model
     //const UPDATED_AT = 'fecha_actualizacion';
     
     protected $fillable = [
-     'id_Usuario' ,'nombre_Curso', 'nombre_Servicio', 'introduccion', 
-     'justificacion', 'objetivo_General', 'especificar_Servicio',
-     'duracion_HCurso', 'fecha_Inicio', 'hora_Inicio','hora_Salida', 'fecha_Termino','elementos_Desarrollo_Curso',
-     'competencias_Desarrollar', 'fuentes_Informacion'
+        'id_usuario',
+        'id_area',
+        'nombre_Curso',
+        'tipo_servicio_curso',
+        'tipo_modalida_curso',
+        'introduccion',
+        'justificacion',
+        'objetivo_General',
+        'especificar_Servicio',
+        'duracion_HCurso',
+        'fecha_inicio',
+        'hora_Inicio',
+        'hora_Salida',
+        'fecha_finalizacion',
+        'elementos_Desarrollo_Curso',
+        'competencias_Desarrollar',
+        'fuentes_Informacion',
     ];
 }

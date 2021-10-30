@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasRolesAndPermissions;
+use App\Models\Telefono;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRolesAndPermissions ;
-    protected $table = "tbl_usuario";
-    protected $primaryKey = 'id_Usuario';
+    protected $table = "tbl_usuarios";
+    protected $primaryKey = 'id_usuario';
     public $incrementing = true;
     public $timestamps = false;
 
@@ -22,11 +23,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre',
-        'primer_Apellido',
-        'segundo_Apellido',
+        'id_area_usuario',
+        'rfc_usuario',
+        'curp_usuario',
+        'nombre_usuario',
+        'apellido_paterno_usuario',
+        'apellido_materno_usuario',
+        'genero_usuario',
         'correo_electronico',
-        'contrasena',
+        'estatus_usuario'
     ];
 
     /**
@@ -37,7 +42,7 @@ class User extends Authenticatable
     protected $hidden = [
         //'password',
         //'remember_token',
-        'contrasena'
+        'contrasena_usuario'
     ];
 
     /**
@@ -48,4 +53,13 @@ class User extends Authenticatable
     protected $casts = [
        // 'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The function that relation to tbl_telefono
+     * 
+     */
+    public function telefonos()
+    {
+        return $this->hasMany(Telefono::class);
+    }
 }

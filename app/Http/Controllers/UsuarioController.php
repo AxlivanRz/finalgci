@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Rol;
 use Illuminate\Support\Facades\DB;
 use App\Models\Permisos;
-
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class UsuarioController extends Controller
 {
@@ -31,14 +31,11 @@ class UsuarioController extends Controller
      */
     public function create(Request $request)
     {
-       // if ($request->ajax()) {
-         //   return '34';
-        //}
-      if($request->ajax()){
-        $roles = Rol::where('id_Rol', $request->id_Rol)->first();
-        $perm = $roles->permisos; 
-        return  $perm;
-      }
+        if ($request->ajax()) {
+            $roles = Rol::where('id_Rol', $request->id_Rol)->first();
+            $perm = $roles->permisos;
+            return  $perm;
+        }
         $roles = Rol::all(); 
         //$permisos = Permisos::all();, ['permisos' => $permisos]
         return view ('usuarios.createUser', ['roles' => $roles]);
@@ -53,12 +50,12 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $create = new User; 
-        $create -> nombre = $request->nombre;
-        $create -> primer_Apellido = $request->primer_Apellido;
-        $create -> segundo_Apellido = $request->segundo_Apellido;
-        $create -> correo_electronico = $request->correo_electronico;
-        $create -> contrasena = HASH::make($request->contrasena);
+        $create = new User;
+        $create->nombre_usuario = $request->nombre_usuario;
+        $create->apellido_paterno_usuario = $request->apellido_paterno_usuario;
+        $create->apellido_materno_usuario = $request->apellido_materno_usuario;
+        $create->correo_electronico = $request->correo_electronico;
+        $create->contrasena_usuario = HASH::make($request->contrasena_usuario);
         $create->save();
 
         if ($request->rol != null) {
@@ -161,5 +158,20 @@ class UsuarioController extends Controller
         $user->delete();
         return redirect('/User');
     }
-    
+
+    /**
+     * Seach data of a user with the rfc.
+     * 
+     * @param \Illuminate\Http\Request
+     */
+    public function getDataUser(Request $request)
+    {
+        $usuarioRFC = $request->rfc_usuario;
+        $have_id = DB::table('tbl_usuarios')
+        ->select('id_usuario')
+        ->where('rfc_usuario', 'LIKE', $usuarioRFC);
+        $usuario = User::findOrFail($have_id);
+
+        return compact('usuario');
+    }
 }

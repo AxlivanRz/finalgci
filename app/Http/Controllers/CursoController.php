@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Curso;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 class CursoController extends Controller
 {
     /**
@@ -62,8 +64,8 @@ class CursoController extends Controller
       $curso->save();
       $get_id=trim($request->get('nombreCur'));
       $have_id = DB::table('tbl_cursos')
-      ->select('id_Curso')
-      ->where('nombre_Curso', 'LIKE', $get_id);
+        ->select('id_Curso')
+        ->where('nombre_Curso', 'LIKE', $get_id);
       $have_id = $have_id ->get(); 
       //return redirect('/Curso');
       //return redirect('/Curso/Instrumentos/create', compact('have_id'));
@@ -136,7 +138,35 @@ class CursoController extends Controller
         $curso = Curso::findOrFail($id_Curso);
         $curso->delete();
         //Curso::destroy($id_Curso);
-    
-    return redirect('/Curso');
+
+        return redirect('/Curso');
+    }
+
+    /**
+     * Ir a una nueva página para insertar un instructor y a la vez visualizar el 
+     * 
+     * @param int $id_Curso of curse
+     * @var $rfc of user 
+     */
+    public function insertInstructor($id_Curso)
+    {
+        $curso = Curso::findOrFail($id_Curso);
+        return view('instructor.selectInstructor', compact('curso'));
+    }
+    /**
+     * Insertar el instructor al curso
+     * 
+     * @param int $id_Curso de curso
+     * @param \Illuminate\Http\Request
+     */
+    public function selectInstructor(Request $request, $id_Curso)
+    {
+        $curso = Curso::findOrFail($id_Curso);
+        $get_rfcUser = trim($request->get('rfc_usuario'));
+        $have_id = DB::table('tbl_usuarios')
+        ->select('id_usuario')
+        ->where('rfc_usuario', 'LIKE', $get_rfcUser);
+        $curso->id_Usuario = $have_id->get();
+        return redirect('/Curso');
     }
 }
