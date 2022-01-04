@@ -9,7 +9,7 @@ use App\Models\User;
 
 class Permisos extends Model
 {
-    protected $table = 'tbl_permiso';
+    protected $table = 'tbl_permisos';
     protected $primaryKey = 'id_Permiso';
     public $incrementing = true;
     //protected $keyType = 'string';

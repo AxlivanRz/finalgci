@@ -24,10 +24,10 @@ class PermisoUsuario extends Model
     ];
     public function usuarios()
     {
-        return $this->belongsToMany(User::class, 'tbl_Usuarios', 'id_Usuario');
+        return $this->belongsToMany(User::class, 'tbl_usuarios', 'id_Usuario');
     }
     public function permisos()
     {
-        return $this->belongsToMany(Permisos::class, 'tbl_permiso', 'id_Permiso');
+        return $this->belongsToMany(Permisos::class, 'tbl_permisos', 'id_Permiso');
     }
 }

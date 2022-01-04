@@ -11,7 +11,7 @@ use App\Traits\HasRolesAndPermissions;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRolesAndPermissions ;
-    protected $table = "tbl_usuario";
+    protected $table = "tbl_usuarios";
     protected $primaryKey = 'id_Usuario';
     public $incrementing = true;
     public $timestamps = false;
@@ -22,11 +22,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nombre',
-        'primer_Apellido',
-        'segundo_Apellido',
+        'id_area_usuario',
+        'rfc_usuario',
+        'curp_usuario',
+        'nombre_usuario',
+        'apellido_paterno_usuario',
+        'apellido_materno_usuario',
+        'genero_usuario',
         'correo_electronico',
-        'contrasena',
+        'contrasenia_usuario',
+        'fecha_nacimiento',
+
     ];
 
     /**
@@ -37,7 +43,7 @@ class User extends Authenticatable
     protected $hidden = [
         //'password',
         //'remember_token',
-        'contrasena'
+        'contrasenia_usuario'
     ];
 
     /**

@@ -40,11 +40,16 @@
                             <li class="nav-item">
                                 <a href="{{ url('/Inicio') }}" class="nav-link" style="color: white;">Inicio</a>
                             </li>
+                            @canany(['isAdmin', 'isTeacher'])
+                            <li class="nav-item">
+                                <a href="{{ url('/Curso') }}" class="nav-link" style="color: white;">Cursos</a>
+                            </li>
+                            @endcanany
                             <li class="nav-item dropdown" >
                                 <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="far fa-user-circle fa-fw" style="color: white;"></i>
                                     @auth
-                                        {{ Auth::user()->nombre}} {{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre_Rol : "" }}
+                                        {{ Auth::user()->nombre_usuario}} {{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->nombre_Rol : "" }}
                                     @endauth
                                 </a>
                                 <ul class="dropdown-menu border-0 shadow" aria-labelledby="navbarDropdown">
@@ -77,13 +82,12 @@
             <br>
             @if(session('status'))
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h6><i class="fas fa-check-circle"></i> Sesión iniciada</h6>
-                            <h6 align="center">{{session('status')}}</h6>
+                            <h6><i class="fas fa-check-circle"></i>  Sesión iniciada, {{session('status')}}</h6>
                         </div>
                     </div>
                 </div>
@@ -91,18 +95,29 @@
             
             @if(session('status1'))
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                     </div>
-                    <div class="col-md-3">
-                        <div class="alert alert-success alert-dismissible">
+                    <div class="col-md-4">
+                        <div class="alert alert-info alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h6 ><i class="fas fa-check-circle"></i></i> Hasta luego</h6>
-                            <h6 align="center">{{session('status1')}}</h6>
+                            <h6 ><i class="fas fa-check-circle"></i>  Cerraste sesión; {{session('status1')}}</h6>
                         </div>
                     </div>
                 </div>
             @endif
-            
+
+            @if(session('status2'))
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h6 ><i class="fas fa-ban"></i>  Debes iniciar sesión para continuar{{session('status2')}}</h6>
+                    </div>
+                </div>
+            </div>
+        @endif
             <div class="flex-center position-ref full-height">
                 <div class="content">
                     @yield('content')

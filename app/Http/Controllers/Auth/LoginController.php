@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\HASH;
 
 
@@ -23,7 +24,7 @@ class LoginController extends Controller
             ]);  
     
         }else{
-            $contraseniaU = $user->contrasena;
+            $contraseniaU = $user->contrasenia_usuario;
             $contraIn = $request->contra;
             if(HASH::check($contraIn, $contraseniaU)){
                 Auth::login($user);
@@ -45,18 +46,27 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/Usuarios/login')
-        ->with('status1', "Cerraste sesión");
+        ->with('status1', "Hasta luego");
     }
 
     public function store(Request $request)
-    {
+    {   
         $registro = new User; 
-        $registro -> nombre = $request->nombre;
-        $registro -> primer_Apellido = $request->primer_Apellido;
-        $registro -> segundo_Apellido = $request->segundo_Apellido;
+        $registro -> rfc_usuario = $request->rfc;
+        $registro -> curp_usuario = $request->curp;
+        $registro -> nombre_usuario = $request->nombre;
+        $registro -> apellido_paterno_usuario = $request->primer_Apellido;
+        $registro -> apellido_materno_usuario = $request->segundo_Apellido;
+        $registro -> genero_usuario = $request->genero;
         $registro -> correo_electronico = $request->correo_electronico;
-        $registro -> contrasena = HASH::make($request->contrasena);
+        $registro -> contrasenia_usuario = HASH::make($request->contrasena);
+        $registro -> fecha_nacimiento = $request->fecha;
         $registro->save();
+        $registro->roles()->attach('3');
+        $registro->save();    
+        $registro->permisos()->attach('2');
+        $registro->save();
+        
         return redirect('/Usuarios/login'); 
     }
     

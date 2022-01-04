@@ -16,7 +16,7 @@
             </div>
             </div>
             <br>
-         <h5 style="color: dark; text-align: center;">¿Esta seguro de eliminar al usuario {{$us->nombre}}?</h5>
+         <h5 style="color: dark; text-align: center;">¿Esta seguro de eliminar al usuario {{$us->nombre_usuario}}?</h5>
         </div>
         <div class="modal-footer bg-light border-0">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

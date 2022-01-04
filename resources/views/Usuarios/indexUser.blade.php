@@ -11,9 +11,11 @@
         style="background-color: #09c6f9 ; background-image: linear-gradient(315deg, #09c6f9 10%, #045de9 74%);">
           <h3 class="card-title" style="color:#ffffff">Usuarios</h3>
           <div class="card-tools">
+            
             <a type="submit" class="btn btn-success btn-tool"  href="{{ url('/User/create')}}">
               <i class="far fa-plus-square"></i>
             </a>
+            
             <button type="button" class="btn btn-warning btn-tool btn-left" data-toggle="modal" data-target="#informacion">
               <i class="far fa-question-circle"></i>
             </button>
@@ -32,6 +34,7 @@
                   <th>Nombre</th>
                   <th>Primer Apellido</th>
                   <th>Segundo Apellido</th>
+                  <th>RFC</th>
                   <th>Correo electrónico</th>
                   <th>Roles</th>
                   <th>Permisos</th>
@@ -40,10 +43,11 @@
               </thead>
               <tbody>
                 @foreach ( $user as $us )
-                <tr>
-                  <td>{{$us->nombre}}</td>
-                  <td>{{$us->primer_Apellido}}</td>
-                  <td>{{$us->segundo_Apellido}}</td>
+                <tr {{Auth::user()->id_Usuario == $us->id_Usuario ? 'bgcolor=#ddd' : ''}}>
+                  <td>{{$us->nombre_usuario}}</td>
+                  <td>{{$us->apellido_paterno_usuario}}</td>
+                  <td>{{$us->apellido_materno_usuario}}</td>
+                  <td>{{$us->rfc_usuario}}</td>
                   <td>{{$us->correo_electronico}}</td>
                   <td>
                     @if ( $us->roles->isNotEmpty())
@@ -64,7 +68,9 @@
                     @endforeach
                   @else
                   <span class="badge badge-danger">Sin permisos</span>
-                  @endif</td>  
+                  @endif
+                  </td> 
+                  
                   <td>
                     <a type="submit" class="btn btn-primary" href="{{ route('User.edit',$us->id_Usuario)}}">
                         <i class="far fa-edit"></i>
@@ -75,7 +81,6 @@
                   </td>
                 </tr>
                 @include('usuarios.destroyUser')
-                
                 
                 @endforeach
               </tbody>
@@ -89,43 +94,6 @@
     </div>
   </div>
 </div>
-<!-- /modalTemas-->
-<div class="modal fade" id="temas" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="temasLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-success">
-        <h5 class="modal-title" id="staticBackdropLabel">Contenido Curso</h5>
-        <button type="button"  class="close btn-danger" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       
-          <div class="form-group " >
-              <label >Nombre del Tema/Subtema</label>
-              <textarea class="form-control" id = "nombreInst" name = "nombreInst" placeholder="Enter ..."></textarea>
-          </div>
-          <div class="form-group">
-              <label for="NomCurso">Tiempo programado</label>
-              <input type="text" id="tiempoInst" name = "nombreInst" class="form-control">
-          </div>
-          <div class="form-group">
-              <label>Actividades de aprendizaje</label>
-              <textarea class="form-control" id = "actividadesInst" name = "actividadesInst" placeholder="Enter ..."></textarea>
-          </div>
-
-      </div>
-      <div class="modal-footer bg-success">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-info">Agregar</button>
-      </div>
-    </div>  
-  </div>
-</div>
-<!-- /modalTemas-->
-
-
-
 <!-- /modalInformacion-->
 <div class="modal fade" id="informacion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="informacionLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -137,11 +105,10 @@
         </button>
       </div>
       <div class="modal-body">
-       
-          <div class="form-group">
-            <label>Informacion</label>
-           Aquí va la informacion relacionada con el llenado del curso y sobre la accion de los botones
-          </div>
+        <div class="form-group">
+          <label>Informacion</label>
+          Aquí va la informacion relacionada con el llenado del curso y sobre la accion de los botones
+        </div>
       </div>
       <div class="modal-footer bg-warning">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -150,9 +117,8 @@
     </div>  
   </div>
 </div>
-<!-- /modalInstrumentos-->
+<!-- /modalInformacion-->
 <br>
-
 @section('cont')
 @endsection
 @endsection

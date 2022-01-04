@@ -13,37 +13,81 @@
                     @csrf 
                     @method('PUT')
                     <div class="form-group row">
-                      <div class="form-group col-md-4">  
-                          <label for="nombre">Nombre</label>
-                          <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-address-book"></i></span>
-                              </div>
-                              <input id="nombre" type="text" class="form-control" name="nombre" value="{{ $user->nombre }}" required autocomplete="nombre" autofocus>
-                          </div>
+                      <div class="form-group row">
+                        <div class="form-group col-md-4">  
+                            <label for="nombre">Nombre</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                                </div>
+                                <input id="nombre" type="text" class="form-control" name="nombre" value="{{ $user->nombre_usuario }}" required autocomplete="nombre" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-goup col-md-4">
+                            <label for="primer_Apellido">Primer Apellido</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                                </div>
+                                <input id="primer_Apellido" type="text" class="form-control" name="primer_Apellido" value="{{ $user->apellido_paterno_usuario }}" required autocomplete="primer_Apellido" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="segundo_Apellido" >Segundo Apellido</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                                </div>
+                                <input id="segundo_Apellido" type="text" class="form-control" name="segundo_Apellido" value="{{ $user->apellido_materno_usuario }}" autocomplete="segundo_Apellido" autofocus>
+                            </div>
+                        </div>
                       </div>
-                      <div class="form-goup col-md-4">
-                          <label for="primer_Apellido">Primer Apellido</label>
-                          <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-address-book"></i></span>
-                              </div>
-                              <input id="primer_Apellido" type="text" class="form-control" name="primer_Apellido" value="{{ $user->primer_Apellido }}" required autocomplete="primer_Apellido" autofocus>
-                          </div>
-                      </div>
-                      <div class="form-group col-md-4">
-                          <label for="segundo_Apellido" >Segundo Apellido</label>
-                          <div class="input-group mb-3">
-                              <div class="input-group-prepend">
-                              <span class="input-group-text"><i class="far fa-address-book"></i></span>
-                              </div>
-                              <input id="segundo_Apellido" type="text" class="form-control" name="segundo_Apellido" value="{{ $user->segundo_Apellido }}" autocomplete="segundo_Apellido" autofocus>
-                          </div>
-                      </div>
+
+                      <div class="form-group row">
+                        <div class="form-group col-md-4">
+                            <label for="rfc" >RFC</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                </div>
+                                <input id="rfc" type="text" class="form-control" name="rfc" value="{{ $user->rfc_usuario }}" required autocomplete="rfc">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="curp">Curp</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend ">
+                                <span class="input-group-text "><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input id="curp" type="curp" class="form-control" name="curp" value="{{ $user->curp_usuario }}" required autocomplete="curp">
+                            </div>   
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="fecha">Fecha de nacimiento</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend ">
+                                <span class="input-group-text "><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="date" class="form-control" id="fecha" name="fecha" value="{{ $user->fecha_nacimiento }}" data-inputmask-alias="date" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" inputmode="numeric">
+                            </div>   
+                        </div>
                     </div>
 
                     <div class="form-group row">
-                        <div class="form-group col-md-4">
+                      <div class="form-group col-md-3">  
+                        <label for="genero">Género</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                            </div>
+                            <select class = "genero form-control" name="genero" id="genero">
+                                <option value="M" >Masculino</option>
+                                <option value="F" >Femenino</option>
+                                <option value="O" >Otro</option>
+                            </select>
+                        </div>
+                      </div>
+                        <div class="form-group col-md-5">
                           <label for="correo_electronico" >Correo Electronico</label>
                           <div class="input-group mb-3">
                               <div class="input-group-prepend">
@@ -65,22 +109,22 @@
                                 </div>
                             </div>   
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="rol">Rol de Usuario</label>
-                            <div class = "input-group mb-3">
-                                <div class="input-group-prepend ">
-                                <span class="input-group-text "><i class="fas fa-user-tag"></i></span>
-                                </div>
-                                  <select class = "rol form-control" name="rol" id="rol">
-                                      <option value="0" >Seleccione un valor</option>
-                                      @foreach ($roles as $rol)
-                                      <option data-rol-id="{{$rol->id_Rol}}" data-rol-slug="{{$rol->slug}}"
-                                      value="{{$rol->id_Rol}}" {{ $user->roles->isEmpty() || $rol->nombre_Rol != $userRol->nombre_Rol ? "" : "selected" }} > {{$rol->nombre_Rol}}</option>  
-                                      @endforeach
-                                  </select>
-                            </div>
-                        </div> 
                     </div>
+                    <div class="form-group col-md-4">
+                      <label for="rol">Rol de Usuario</label>
+                      <div class = "input-group mb-3">
+                          <div class="input-group-prepend ">
+                          <span class="input-group-text "><i class="fas fa-user-tag"></i></span>
+                          </div>
+                            <select class = "rol form-control" name="rol" id="rol">
+                                <option value="0" >Seleccione un valor</option>
+                                @foreach ($roles as $rol)
+                                <option data-rol-id="{{$rol->id_Rol}}" data-rol-slug="{{$rol->slug}}"
+                                value="{{$rol->id_Rol}}" {{ $user->roles->isEmpty() || $rol->nombre_Rol != $userRol->nombre_Rol ? "" : "selected" }} > {{$rol->nombre_Rol}}</option>  
+                                @endforeach
+                            </select>
+                      </div>
+                    </div> 
                     <div class="form-group row">
                       <div class="col-md-2"></div>
                       <div id="permisosbox" class="form-group col-md-4" >
@@ -123,7 +167,7 @@
                           var userpermisosbox = $('#userpermisosbox');
                           permisosbox.hide(); 
                           $('#rol').on('change', function(){
-                              var rol = $(this).find(':selected');
+                              var rol  = $(this).find(':selected');
                               var rol_id = rol.data('rol-id');
                               var rol_slug = rol.data('rol-slug'); 
                               userpermisos_checkbox_list.empty();

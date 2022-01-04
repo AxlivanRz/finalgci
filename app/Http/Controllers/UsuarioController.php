@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\HASH;
 use App\Models\User; 
 use App\Models\Rol;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Permisos;
 
 
@@ -31,17 +32,14 @@ class UsuarioController extends Controller
      */
     public function create(Request $request)
     {
-       // if ($request->ajax()) {
-         //   return '34';
-        //}
       if($request->ajax()){
         $roles = Rol::where('id_Rol', $request->id_Rol)->first();
-        $perm = $roles->permisos; 
-        return  $perm;
+        $permiso = $roles->permisos; 
+        return  $permiso;
       }
         $roles = Rol::all(); 
-        //$permisos = Permisos::all();, ['permisos' => $permisos]
-        return view ('usuarios.createUser', ['roles' => $roles]);
+        $permisos2 = Permisos::all();
+        return view ('usuarios.createUser', ['roles' => $roles], ['permisos' => $permisos2]);
     }
 
     /**
@@ -52,25 +50,28 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
+       
         $create = new User; 
-        $create -> nombre = $request->nombre;
-        $create -> primer_Apellido = $request->primer_Apellido;
-        $create -> segundo_Apellido = $request->segundo_Apellido;
+        $create -> rfc_usuario = $request->rfc;
+        $create -> curp_usuario = $request->curp;
+        $create -> nombre_usuario = $request->nombre;
+        $create -> apellido_paterno_usuario = $request->primer_Apellido;
+        $create -> apellido_materno_usuario = $request->segundo_Apellido;
+        $create -> genero_usuario = $request->genero;
         $create -> correo_electronico = $request->correo_electronico;
-        $create -> contrasena = HASH::make($request->contrasena);
+        $create -> contrasenia_usuario = HASH::make($request->contrasena);
+        $create -> fecha_nacimiento = $request->fecha;
         $create->save();
 
-        if ($request->rol != null) {
+        if ($request->rol !=null) {
             $create->roles()->attach($request->rol);
             $create->save();
         }
-        if($request->permisos != null){
-            foreach($request->permisos as $permiso){
-                $create->permisos()->attach($permiso);
+        if ($request-> permisos !=null) {
+            foreach($request-> permisos as $per){
+                $create->permisos()->attach($per);
                 $create->save();
             }
-
         }
         return redirect('/User'); 
     }
@@ -123,13 +124,17 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $user = User::findOrFail($id);
-        $user -> nombre = $request->nombre;
-        $user -> primer_Apellido = $request->primer_Apellido;
-        $user -> segundo_Apellido = $request->segundo_Apellido;
+        $user -> rfc_usuario = $request->rfc;
+        $user -> curp_usuario = $request->curp;
+        $user -> nombre_usuario = $request->nombre;
+        $user -> apellido_paterno_usuario = $request->primer_Apellido;
+        $user -> apellido_materno_usuario = $request->segundo_Apellido;
         $user -> correo_electronico = $request->correo_electronico;
+        $user -> fecha_nacimiento = $request->fecha;
         if ($request->contrasena !=null) {
-            $user->contrasena = Hash::make($request->contrasena);
+            $user->contrasenia_usuario = Hash::make($request->contrasena);
         }
         $user->save();
         $user->roles()->detach();
@@ -154,12 +159,17 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $user = User::findOrFail($id); 
-        $user->roles()->detach();
-        $user->permisos()->detach();
-        $user->delete();
-        return redirect('/User');
+    { 
+        if (Gate::allows('isAdmin')){
+            $user = User::findOrFail($id); 
+            $user->roles()->detach();
+            $user->permisos()->detach();
+            $user->delete();
+            return redirect('/User');
+        }else{
+            return redirect('/User');
+        }
+        
     }
     
 }

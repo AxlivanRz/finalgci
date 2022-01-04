@@ -22,7 +22,7 @@ class PermisoRol extends Model
     ];
     public function permisos()
     {
-        return $this->belongsToMany(Permisos::class, 'tbl_permiso', 'id_Permiso');
+        return $this->belongsToMany(Permisos::class, 'tbl_permisos', 'id_Permiso');
     }
     public function roles()
     {

@@ -23,11 +23,11 @@ class RolUsuario extends Model
     ];
     public function usuarios()
     {
-        return $this->belongsToMany(User::class, 'tbl_Usuarios', 'id_Usuario');
+        return $this->belongsToMany(User::class, 'tbl_usuarios', 'id_Usuario');
     }
     public function roles()
     {
         return $this->belongsToMany(Rol::class, 'tbl_rol', 'id_Rol');
     }
-    
+     
 }

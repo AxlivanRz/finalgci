@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'correo_electronico' =>['required', 'correo_electronico', 'string'],
-            'contrasena' => ['required', 'string']
+            'contrasenia_usuario' => ['required', 'string']
         ];
     }
 }

@@ -57,10 +57,53 @@
                             </div>
                         </div>
 
+
+                        <div class="form-group row">
+                            <div class="form-group col-md-4">
+                                <label for="rfc" >RFC</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <input id="rfc" type="text" class="form-control" name="rfc" value="{{ old('rfc') }}" required autocomplete="rfc">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="curp">Curp</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend ">
+                                    <span class="input-group-text "><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input id="curp" type="curp" class="form-control" name="curp" required autocomplete="curp">
+                                </div>   
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="fecha">Fecha de nacimiento</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend ">
+                                    <span class="input-group-text "><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input type="date" class="form-control" id="fecha" name="fecha" data-inputmask-alias="date" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" inputmode="numeric">
+                                </div>   
+                            </div>
+                        </div>
                       
 
                         <div class="form-group row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">  
+                                <label for="genero">Género</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-address-book"></i></span>
+                                    </div>
+                                    <select class = "genero form-control" name="genero" id="genero">
+                                        <option value="M" >Masculino</option>
+                                        <option value="F" >Femenino</option>
+                                        <option value="O" >Otro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-5">
                                 <label for="correo_electronico" >Correo Electronico</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -69,7 +112,7 @@
                                     <input id="correo_electronico" type="email" class="form-control" name="correo_electronico" value="{{ old('correo_electronico') }}" required autocomplete="correo_electronico">
                                 </div>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="contrasena">Contraseña</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend ">
