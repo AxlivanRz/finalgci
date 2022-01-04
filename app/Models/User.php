@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\HasRolesAndPermissions;
+use App\Models\Telefono;
 
 class User extends Authenticatable
 {
@@ -30,9 +31,13 @@ class User extends Authenticatable
         'apellido_materno_usuario',
         'genero_usuario',
         'correo_electronico',
+<<<<<<< HEAD
         'contrasenia_usuario',
         'fecha_nacimiento',
 
+=======
+        'estatus_usuario'
+>>>>>>> bdc8d637767e346f07c3482ee42ad7e99286dea8
     ];
 
     /**
@@ -43,7 +48,11 @@ class User extends Authenticatable
     protected $hidden = [
         //'password',
         //'remember_token',
+<<<<<<< HEAD
         'contrasenia_usuario'
+=======
+        'contrasena_usuario'
+>>>>>>> bdc8d637767e346f07c3482ee42ad7e99286dea8
     ];
 
     /**
@@ -54,4 +63,13 @@ class User extends Authenticatable
     protected $casts = [
        // 'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The function that relation to tbl_telefono
+     * 
+     */
+    public function telefonos()
+    {
+        return $this->hasMany(Telefono::class);
+    }
 }

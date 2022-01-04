@@ -10,7 +10,7 @@ use App\Models\Rol;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Permisos;
-
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class UsuarioController extends Controller
 {
@@ -171,5 +171,20 @@ class UsuarioController extends Controller
         }
         
     }
-    
+
+    /**
+     * Seach data of a user with the rfc.
+     * 
+     * @param \Illuminate\Http\Request
+     */
+    public function getDataUser(Request $request)
+    {
+        $usuarioRFC = $request->rfc_usuario;
+        $have_id = DB::table('tbl_usuarios')
+        ->select('id_usuario')
+        ->where('rfc_usuario', 'LIKE', $usuarioRFC);
+        $usuario = User::findOrFail($have_id);
+
+        return compact('usuario');
+    }
 }

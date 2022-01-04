@@ -17,7 +17,7 @@ class Rol extends Model
     //const UPDATED_AT = 'fecha_actualizacion';
     
     protected $fillable = [
-     'nombre_Rol' ,'slug'
+        'nombre_Rol', 'slug_rol'
     ];
     public function permisos()
     {

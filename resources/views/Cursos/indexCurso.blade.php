@@ -38,6 +38,7 @@
                   <th>Editar</th>
                   <th >Temas</th>
                   <th >Instrumentos de evaluación</th>
+                  <th>Instructor</th>
               </tr>
               </thead>
               <tbody>
@@ -56,6 +57,9 @@
                   </td>
                   <td >
                     <center><a type="button" class="btn btn-success" data-toggle="modal" data-target="#instrumentos" ><i class="far fa-plus-square"></i></a></center>  
+                  </td>
+                  <td>
+                    <a type="submit" href="{{ route('curso.instructor',$cur->id_Curso)}}"  class="btn btn-primary float-right"><i class="far fa-edit"></i></a> 
                   </td>
                 </tr>
                 @endforeach

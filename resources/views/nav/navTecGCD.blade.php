@@ -14,6 +14,7 @@
         <script src="../js/bootstrap-tagsinput.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         @yield('js_user_page')
+        @yield('js_exp_docente')
         @yield('js_contrasena')
         @yield('css')
         @yield('js')

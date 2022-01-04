@@ -17,7 +17,7 @@ class Permisos extends Model
     //const CREATED_AT = 'fecha_captura';
     //const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = [
-     'nombre_Permiso' ,'slug'
+        'nombre_permiso', 'slug_permiso'
     ];
     public function roles()
     {
