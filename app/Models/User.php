@@ -31,13 +31,9 @@ class User extends Authenticatable
         'apellido_materno_usuario',
         'genero_usuario',
         'correo_electronico',
-<<<<<<< HEAD
         'contrasenia_usuario',
         'fecha_nacimiento',
 
-=======
-        'estatus_usuario'
->>>>>>> bdc8d637767e346f07c3482ee42ad7e99286dea8
     ];
 
     /**
@@ -48,11 +44,7 @@ class User extends Authenticatable
     protected $hidden = [
         //'password',
         //'remember_token',
-<<<<<<< HEAD
         'contrasenia_usuario'
-=======
-        'contrasena_usuario'
->>>>>>> bdc8d637767e346f07c3482ee42ad7e99286dea8
     ];
 
     /**
