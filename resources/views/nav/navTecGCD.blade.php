@@ -18,9 +18,7 @@
         @yield('js_contrasena')
         @yield('css')
         @yield('js')
-        
-        
-</head>
+    </head>
 <body style="background-color: #F2F3F4  ;">
     
 </body>
@@ -108,17 +106,17 @@
             @endif
 
             @if(session('status2'))
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <div class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h6 ><i class="fas fa-ban"></i>  Debes iniciar sesión para continuar{{session('status2')}}</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h6 ><i class="fas fa-ban"></i>  Acceso restringido: {{session('status2')}}</h6>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
             <div class="flex-center position-ref full-height">
                 <div class="content">
                     @yield('content')
@@ -128,21 +126,20 @@
     </body>
     <div class="row">
         <div class="col-sm-7" style="padding-right: 0;">
-            <div class="card-border-0" style="height: 70px; background-color: #fbfafa">
+            <div class="card-border-0" style="height: 75px; background-color: #ffffff">
                 <div class="mx-auto d-block" style="text-align: center">
-                    <img src="{{ asset('../img/logos0.png') }} " style="height: 60px; width: 88%; " class="card-img d-top">
+                    <img src="{{ asset('../img/logos0.png') }} " style="height: 70px; width: 86%; " class="card-img d-top">
                 </div>
             </div>
         </div>
         <div class="col-sm-5" style="padding-left: 0;">
-            <div class="card-border-0" style="height: 70px; background-color: #fbfafa">
+            <div class="card-border-0" style="height: 75px; background-color: #ffffff">
                 <div class="mx-auto d-block" style="text-align: left">
-                    <img src="{{ asset('../img/logos1.png') }}" style="height: 60px; width: 88%;" class="card-img d-top">
+                    <img src="{{ asset('../img/logos1.png') }}" style="height: 70px; width: 86%;" class="card-img d-top">
                 </div>
             </div>
         </div>
     </div>
-    
 <footer style = "background-color:  #1B396A">
     <div class="container" style="color:#ffffff">
         <div class="row">
