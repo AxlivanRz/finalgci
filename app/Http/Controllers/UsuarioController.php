@@ -177,14 +177,25 @@ class UsuarioController extends Controller
      * 
      * @param \Illuminate\Http\Request
      */
-    public function getDataUser(Request $request)
+    public function findUser(Request $request)
     {
-        $usuarioRFC = $request->rfc_usuario;
-        $have_id = DB::table('tbl_usuarios')
-        ->select('id_usuario')
-        ->where('rfc_usuario', 'LIKE', $usuarioRFC);
-        $usuario = User::findOrFail($have_id);
+        $user = User::where('curp_usuario', $request->curp_usuario)->first();
 
-        return compact('usuario');
+        if (empty($user)) {
+            throw ValidationException::withMessages([
+                'general_user' => 'Este CURP no conciden con nuestro registros',
+            ]);
+        } else {
+            $constancias = Constancia::where('id_Usuario', 'LIKE', $user->id_usuario)->first();
+
+            if (empty($constancias)) {
+                throw ValidationException::withMessages([
+                    'constancia' => 'El usuario no dispone de constancia actualmente',
+                ]);
+                return compact('user');
+            } else {
+                return [compact('user'), compact('constancias')];
+            }
+        }
     }
 }

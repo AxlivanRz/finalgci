@@ -146,27 +146,25 @@ class CursoController extends Controller
      * Ir a una nueva página para insertar un instructor y a la vez visualizar el 
      * 
      * @param int $id_Curso of curse
-     * @var $rfc of user 
      */
-    public function insertInstructor($id_Curso)
+    public function editInstructorCourse($idCurso)
     {
-        $curso = Curso::findOrFail($id_Curso);
+        $curso = Curso::findOrFail($idCurso);
         return view('instructor.selectInstructor', compact('curso'));
     }
+
     /**
      * Insertar el instructor al curso
      * 
      * @param int $id_Curso de curso
      * @param \Illuminate\Http\Request
      */
-    public function selectInstructor(Request $request, $id_Curso)
+    public function saveInstructor(Request $request, $id_Curso)
     {
         $curso = Curso::findOrFail($id_Curso);
-        $get_rfcUser = trim($request->get('rfc_usuario'));
-        $have_id = DB::table('tbl_usuarios')
-        ->select('id_usuario')
-        ->where('rfc_usuario', 'LIKE', $get_rfcUser);
-        $curso->id_Usuario = $have_id->get();
-        return redirect('/Curso');
+        $user = User::where('curp_usuario', $request->curp_usuario)->first();
+        $curso->id_Usuario = $user->id_usuario;
+        $curso->save();
+        return redirect()->route('/Curso');
     }
 }
