@@ -5,20 +5,21 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header " style=" height: 60px;background-color: #ff4e00 ;">
-                    <h5 class="card-title" style=" text-align: center; color:#ffffff">Asignar instructor a un curso</h5>
+                    <h5 class="card-title" style=" text-align: center; color:#ffffff">Asignar instructor a un usuario</h5>
                 </div>
 
                 <div class="card-body">
-                    <!--Esto enviara a la tabla del curso, solo si el instructor cumple con los requisitos necesarios para instruir o impartir el respectivo curso-->
-                    <form action="{{route('curso.selectInstructor')}}" method="POST" ><!--enctype="multipart/form-data", sirve para enviar imagen -->
+                    <!--Esto enviara a la tabla del usuario, solo si el instructor cumple con los requisitos necesarios para instruir o impartir el respectivo usuario-->
+                    <form action="{{route('save.instructor'), $curso}}" method="POST" ><!--enctype="multipart/form-data", sirve para enviar imagen -->
                         @csrf 
+                        @method('put')
                         <div class="form-row mx-auto">
                             <div class="form-group col-md-4">
                                 <div class="input-group mb-1">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-address-book">RFC</i></span>
+                                        <span class="input-group-text"><i class="far fa-address-book">CURP</i></span>
                                     </div>
-                                    <input type="text" value="{{old('rfc_usuario')}}" class="form-control" name="rfc_usuario" id="rfc_usuario" autofocus>
+                                    <input type="text" value="{{old('curp_usuario')}}" class="form-control" name="curp_usuario" id="curp_usuario" autofocus>
                                 </div>
                             </div>
                             <div class="form-group col-md-8">
@@ -26,18 +27,33 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-address-book">Curso</i></span>
                                     </div>
-                                    <input type="text" placeholder="{{$curso->nombre_curso}}" class="form-control" name="nombreCurso" id="nombreCurso" disabled autofocus>
+                                    <input type="text" class="form-control" name="nombreCurso" id="nombreCurso" 
+                                        @if (!empty($curso))
+                                            value="{{$curso->nombre_curso}}"
+                                        @else
+                                            value=""
+                                        @endif 
+                                    disabled autofocus>
                                 </div>
                             </div>
                         </div>
                         <hr class="bg-primary">
+                        @error('general_user')
+                            {{$message}}
+                        @enderror
                         <div class="form-group">
                             <div class="form-group col-md-12">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-address-book">Nombre Completo</i></span>
                                     </div>
-                                    <input type="text" placeholder="{{$usuario->nombre_usuario.' '.$usuario->apellido_paterno_usuario.' '.$usuario->apellido_materno_usuario}}" class="form-control" id="nombre" disabled autofocus>
+                                    <input type="text" class="form-control" id="nombre"
+                                        @if (!empty($usuario))
+                                            value="{{$usuario->nombre_usuario.' '.$usuario->apellido_paterno_usuario.' '.$usuario->apellido_materno_usuario}}"
+                                        @else
+                                            value=""
+                                        @endif  
+                                    disabled autofocus>
                                 </div>
                             </div>
                         </div>
@@ -45,23 +61,40 @@
                             <div class="form-col col-md-6">
                                 <div class="form-group">
                                     <label for="correoElectronico">Correo Electronico</label>
-                                    <input type="text" placeholder="{{$usuario->correo_electronico}}" name="genero" class="form-control" id="correoElectronico" disabled autofocus>
+                                    <input type="text" name="genero" class="form-control" id="correoElectronico"
+                                        @if (!empty($usuario))
+                                            value="{{$usuario->correo_electronico}}"
+                                        @else
+                                            value=""
+                                        @endif
+                                    disabled autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="genero">Genero</label>
-                                    <input type="text" placeholder="{{$usuario->genero}}" name="genero" class="form-control" id="genero" disabled autofocus>
+                                    <input type="text" name="genero" class="form-control" id="genero" 
+                                        @if (!empty($usuario))
+                                            value="{{$usuario->genero}}"
+                                        @else
+                                            value=""
+                                        @endif
+                                    disabled autofocus>
                                 </div>
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="constancia">Constancias</label>
                                 <textarea style="resize: none" class="form-control" id="" cols="34" rows="3">
-                                    @foreach ($constancias as $constancia)
-                                        @if ($constancia->id_usuario == $usuario->id_usuario)
-                                            {{$constancia->folio_constancia}}
-                                        @else
-                                            @break
-                                        @endif
-                                    @endforeach
+                                    @error('constancia')
+                                        {{$message}}
+                                    @enderror    
+                                    @if (!empty($constancias))
+                                        @foreach ($constancias as $constancia)
+                                            @if ($constancia->id_usuario == $usuario->id_usuario)
+                                                {{$constancia->folio_constancia}}
+                                            @else
+                                                @break
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </textarea>
                             </div>
                         </div>
@@ -77,7 +110,7 @@
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-7 offset-md-5">
-                                <input type="button" onclick="{{route('usuario.getData')}}" name="buscar" value="Buscar">
+                                <input type="button" onclick="{{route('search.user')}}" name="buscar" value="Buscar">
                             </div>
                             <div class="col-md-7 offset-md-5">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
