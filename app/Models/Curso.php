@@ -8,7 +8,7 @@ use App\Traits\HasTemasAndInstrumentos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Curso extends Model
 {
-    use HasFactory ,HasTemasAndInstrumentos;
+    use HasFactory;
     protected $table = 'tbl_cursos';
     protected $primaryKey = 'id_Curso';
     public $incrementing = true;
@@ -19,19 +19,19 @@ class Curso extends Model
     
     protected $fillable = [
      'id_Usuario',
-     'nombre_Curso',
-     'nombre_Servicio',
+     'id_area',
+     'nombre_curso',
+     'tipo_servicio_curso',
+     'tipo_modalidad_curso',
      'introduccion', 
      'justificacion',
      'objetivo_General',
-     'especificar_Servicio',
-     'duracion_HCurso',
-     'fecha_Inicio',
-     'hora_Inicio',
-     'hora_Salida',
-     'fecha_Termino',
+     'especificar_servicio_curso', 
+     'duracion_horas_curso',
+     'fecha_inicio',
+     'fecha_finalizacion_curso',
      'elementos_Desarrollo_Curso',
      'competencias_Desarrollar',
-     'fuentes_Informacion'
+     'observacion_curso',
     ];
 }

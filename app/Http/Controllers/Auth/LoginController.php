@@ -35,7 +35,7 @@ class LoginController extends Controller
 
                 }
                 throw ValidationException::withMessages([
-                    'correo_electronico' =>'Estas credenciales no coinciden con nuestros registros',
+                    'contra' =>'Estas credenciales no coinciden con nuestros registros',
                 ]);
         }
        
@@ -68,6 +68,23 @@ class LoginController extends Controller
         $registro->save();
         
         return redirect('/Usuarios/login'); 
+    }
+    public function update(Request $request, $id)
+    {   
+        $registro = User::findOrFail($id);
+        $registro -> rfc_usuario = $request->rfc;
+        $registro -> curp_usuario = $request->curp;
+        $registro -> nombre_usuario = $request->nombre;
+        $registro -> apellido_paterno_usuario = $request->primer_Apellido;
+        $registro -> apellido_materno_usuario = $request->segundo_Apellido;
+        $registro -> genero_usuario = $request->genero;
+        $registro -> correo_electronico = $request->correo_electronico;
+        $registro -> fecha_nacimiento = $request->fecha;
+        if ($registro->contrasena !=null) {
+            $registro->contrasenia_usuario = Hash::make($request->contrasena);
+        }
+        $registro->save();
+        return redirect('/Inicio'); 
     }
     
 }

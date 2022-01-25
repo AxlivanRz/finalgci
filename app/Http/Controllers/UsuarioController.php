@@ -105,7 +105,7 @@ class UsuarioController extends Controller
         }
        
         $userPermisos = $user->permisos;
-        return view('Usuarios.editUser', [
+        return view('Usuarios.rolesUser', [
             'user'=>$user,
             'roles'=>$roles,
             'userRol'=>$userRol,
@@ -124,18 +124,15 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $user = User::findOrFail($id);
         $user -> rfc_usuario = $request->rfc;
         $user -> curp_usuario = $request->curp;
         $user -> nombre_usuario = $request->nombre;
         $user -> apellido_paterno_usuario = $request->primer_Apellido;
         $user -> apellido_materno_usuario = $request->segundo_Apellido;
+        $user -> genero_usuario = $request->genero;
         $user -> correo_electronico = $request->correo_electronico;
         $user -> fecha_nacimiento = $request->fecha;
-        if ($request->contrasena !=null) {
-            $user->contrasenia_usuario = Hash::make($request->contrasena);
-        }
         $user->save();
         $user->roles()->detach();
         $user->permisos()->detach();
@@ -177,14 +174,5 @@ class UsuarioController extends Controller
      * 
      * @param \Illuminate\Http\Request
      */
-    public function getDataUser(Request $request)
-    {
-        $usuarioRFC = $request->rfc_usuario;
-        $have_id = DB::table('tbl_usuarios')
-        ->select('id_usuario')
-        ->where('rfc_usuario', 'LIKE', $usuarioRFC);
-        $usuario = User::findOrFail($have_id);
-
-        return compact('usuario');
-    }
+   
 }

@@ -14,16 +14,9 @@ class InstrumentosEvaluacion extends Model
     //const CREATED_AT = 'fecha_captura';
     //const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = [
-     'id_Curso', 'nombre_Criterio', 'valor', 
+     'id_Curso','nombre_Criterio', 'valor', 
      'instrumento_Evaluacion', 'evidencia_Evaluacion'
      
     ];
-    public function cursos()
-    {
-        return $this->belongsToMany(Curso::class, 'tbl_curso_tema', 'id_Curso' , 'id_Tcontenido');
-    }
-    public function temas()
-    {
-        return $this->belongsToMany(Temas::class, 'tbl_instrumento_tema ', 'id_Criterio' , 'id_Tcontenido');
-    }
+
 }

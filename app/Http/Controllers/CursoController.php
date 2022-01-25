@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Curso;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CursoController extends Controller
 {
@@ -18,8 +19,8 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $cursos = Curso::get(); 
-        return view('cursos.indexCurso', compact('cursos'));
+        $cursosIndex = Curso::get(); 
+        return view('cursos.indexCurso', compact('cursosIndex'));
     }
 
     /**
@@ -40,37 +41,28 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        //$form01Curso = request()->all();
-      //$form01Curso = request()->except('_token'); 
-      //Curso::insertGetId($form01Curso);
-      //return response()->json($form01Curso);
-      
-      $curso = new Curso; 
-      $curso->id_Usuario = $request ->user()->id_Usuario; 
-      $curso->nombre_Curso = $request ->nombreCur; 
-      $curso->nombre_Servicio = $request ->servicioCur; 
-      $curso->introduccion = $request ->introduccionCur;
-      $curso->justificacion = $request ->justificacionCur; 
-      $curso->objetivo_General = $request ->objetivoCur; 
-      $curso->especificar_Servicio = $request ->especificacionCur; 
-      $curso->duracion_HCurso = $request ->duracionCur; 
-      $curso->fecha_Inicio = $request ->fechaI;
-      $curso->hora_Inicio = $request ->horaE;
-      $curso->hora_Salida = $request ->horaS;
-      $curso->fecha_Termino = $request ->fechaF;
-      $curso->elementos_Desarrollo_Curso = $request ->elementosCur; 
-      $curso->competencias_Desarrollar = $request ->competenciasCur; 
-      $curso->fuentes_Informacion = $request ->fuentesCur; 
-      $curso->save();
-      $get_id=trim($request->get('nombreCur'));
-      $have_id = DB::table('tbl_cursos')
-        ->select('id_Curso')
-        ->where('nombre_Curso', 'LIKE', $get_id);
-      $have_id = $have_id ->get(); 
-      //return redirect('/Curso');
-      //return redirect('/Curso/Instrumentos/create', compact('have_id'));
-      return view('cursos.createTemas', compact('have_id'));
-      
+        if (Gate::allows('isTeacher')){
+            $curso = new Curso; 
+            $curso->id_Usuario = $request ->user()->id_Usuario; 
+            $curso->id_area = $request ->user()->id_Usuario; 
+            $curso->nombre_curso = $request ->nombreCur; 
+            $curso->tipo_servicio_curso = $request ->servicioCur; 
+            $curso->tipo_modalidad_curso = $request ->servicioCur;
+            $curso->introduccion = $request ->introduccionCur;
+            $curso->justificacion = $request ->justificacionCur; 
+            $curso->objetivo_General = $request ->objetivoCur; 
+            $curso->especificar_servicio_curso = $request ->especificacionCur; 
+            $curso->duracion_horas_curso = $request ->duracionCur; 
+            $curso->fecha_inicio_curso = $request ->fechaI;
+            $curso->fecha_finalizacion_curso = $request ->fechaF;
+            $curso->elementos_Desarrollo_Curso = $request ->elementosCur; 
+            $curso->competencias_Desarrollar = $request ->competenciasCur; 
+            $curso->observacion_curso = $request ->observacionCur; 
+            $curso->save();
+            return view('cursos.indexCurso');
+        }else{
+            return view('cursos.indexCurso');
+        }
     }
 
     /**
@@ -108,20 +100,19 @@ class CursoController extends Controller
 
         $curso = Curso::findOrFail($id_Curso);
         $curso->id_Usuario = $request -> id_C;
-        $curso->nombre_Curso = $request ->nombreCur; 
-        $curso->nombre_Servicio = $request ->servicioCur; 
+        $curso->nombre_curso = $request ->nombreCur; 
+        $curso->tipo_servicio_curso = $request ->servicioCur; 
+        $curso->tipo_modalidad_curso = $request ->servicioCur;
         $curso->introduccion = $request ->introduccionCur;
         $curso->justificacion = $request ->justificacionCur; 
         $curso->objetivo_General = $request ->objetivoCur; 
-        $curso->especificar_Servicio = $request ->especificacionCur; 
-        $curso->duracion_HCurso = $request ->duracionCur; 
-        $curso->fecha_Inicio = $request ->fechaI;
-        $curso->hora_Inicio = $request ->horaE;
-        $curso->hora_Salida = $request ->horaS;
-        $curso->fecha_Termino = $request ->fechaF;
+        $curso->especificar_servicio_curso = $request ->especificacionCur; 
+        $curso->duracion_horas_curso = $request ->duracionCur; 
+        $curso->fecha_inicio_curso = $request ->fechaI;
+        $curso->fecha_finalizacion_curso = $request ->fechaF;
         $curso->elementos_Desarrollo_Curso = $request ->elementosCur; 
         $curso->competencias_Desarrollar = $request ->competenciasCur; 
-        $curso->fuentes_Informacion = $request ->fuentesCur; 
+        $curso->observacion_curso = $request ->observacionCur; 
         $curso->save();
         return redirect('/Curso');
 
@@ -164,7 +155,7 @@ class CursoController extends Controller
         $curso = Curso::findOrFail($id_Curso);
         $get_rfcUser = trim($request->get('rfc_usuario'));
         $have_id = DB::table('tbl_usuarios')
-        ->select('id_usuario')
+        ->select('id_Usuario')
         ->where('rfc_usuario', 'LIKE', $get_rfcUser);
         $curso->id_Usuario = $have_id->get();
         return redirect('/Curso');

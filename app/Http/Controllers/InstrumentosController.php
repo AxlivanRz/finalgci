@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\InstrumentosEvaluacion;
 use Illuminate\Support\Facades\DB;
 
@@ -27,7 +26,6 @@ class InstrumentosController extends Controller
     public function create()
     {
 
-        return view('cursos.createInstrumento');
     }
 
     /**
@@ -40,18 +38,13 @@ class InstrumentosController extends Controller
     {
 
         $instrumento = new InstrumentosEvaluacion;
-        $instrumento->id_Curso = $request ->idCur;
         $instrumento->nombre_Criterio = $request ->nombreEva; 
+        $instrumento->id_Curso = $request ->idCur;
         $instrumento->valor = $request ->valorEva;
         $instrumento->instrumento_Evaluacion = $request ->instrumentoEva; 
         $instrumento->evidencia_Evaluacion = $request ->evidenciaEva; 
         $instrumento->save();
-        $get_id1=trim($request->get('nombreEva'));
-        $have_id2 = DB::table('tbl_instrumentos_evaluacion')
-        ->select('id_Curso')
-        ->where('nombre_Criterio', 'LIKE', '%'.$get_id1. '%');
-        $have_id2 = $have_id2 ->get(); 
-        return view('cursos.createInstrumento', compact('have_id2'));
+        return redirect ('/Curso');
     }
 
     /**
@@ -60,10 +53,16 @@ class InstrumentosController extends Controller
      * @param  int  $id_Criterio
      * @return \Illuminate\Http\Response
      */
-    public function show($id_Criterio)
+    public function show($id)
     {
-        //
-    }
+        $instrumentos = DB::table('tbl_instrumentos_evaluacion')
+        ->get()
+        ->where('id_Curso', $id);
+        $temas = DB::table('tbl_contenido_curso')
+        ->get()
+        ->where('id_Curso', $id);
+        return view('Cursos.indexTI', compact(['instrumentos', 'temas']));
+    } 
 
     /**
      * Show the form for editing the specified resource.
@@ -85,7 +84,14 @@ class InstrumentosController extends Controller
      */
     public function update(Request $request, $id_Criterio)
     {
-        //
+        $instrumento = InstrumentosEvaluacion::findOrFail($id_Criterio);
+        $instrumento->nombre_Criterio = $request ->nombreEva; 
+        $instrumento->valor = $request ->valorEva;
+        $instrumento->instrumento_Evaluacion = $request ->instrumentoEva; 
+        $instrumento->evidencia_Evaluacion = $request ->evidenciaEva; 
+        $instrumento->save();
+        return redirect(redirect()->getUrlGenerator()->previous());
+    
     }
 
     /**

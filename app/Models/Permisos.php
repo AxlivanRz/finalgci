@@ -14,7 +14,7 @@ class Permisos extends Model
     public $incrementing = true;
     //protected $keyType = 'string';
     public $timestamps = false;
-    //const CREATED_AT = 'fecha_captura';
+    //const CREATED_AT = 'fecha_captura'; 
     //const UPDATED_AT = 'fecha_actualizacion';
     protected $fillable = [
         'nombre_permiso', 'slug_permiso'

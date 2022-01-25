@@ -21,9 +21,9 @@ class RolMiddleware
                     return $next($request);
                 }
             }
-            abort(403);
+           return redirect('/Inicio')->with('status2', "no tienes los permisos necesarios");
         }
         return redirect('/Usuarios/login')
-        ->with('status2', "...");
+        ->with('status2', "inicia sesión para poder acceder");
     }
 }

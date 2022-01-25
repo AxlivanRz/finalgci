@@ -24,9 +24,8 @@ class TemasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('cursos.createTemas');
     }
 
     /**
@@ -38,17 +37,13 @@ class TemasController extends Controller
     public function store(Request $request)
     {
         $tema = new Temas;
-        $tema->id_Curso = $request ->idCur;
+        $id= $request ->idCur;
+        $tema->id_Curso = $id;
         $tema->nombre_TemaSub = $request ->nombreInst; 
         $tema->tiempo_Programado = $request ->tiempoInst;
-        $tema->actividades_Aprendizaje = $request ->actividadesInst; 
-        $tema->save();
-        $get_id1=trim($request->get('nombreEva'));
-        $have_id1 = DB::table('tbl_instrumentos_evaluacion')
-        ->select('id_Curso')
-        ->where('nombre_Criterio', 'LIKE', '%'.$get_id1. '%');
-        $have_id1 = $have_id1 ->get(); 
-        return view('cursos.createTemas', compact('have_id1'));
+        $tema->actividades_aprendizaje = $request ->actividades;
+        $tema->save(); 
+        return redirect ('/Curso');
     }
 
     /**
@@ -82,7 +77,12 @@ class TemasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tema = Temas::findOrFail($id);
+        $tema->nombre_TemaSub = $request ->nombreInst; 
+        $tema->tiempo_Programado = $request ->tiempoInst;
+        $tema->actividades_aprendizaje = $request ->actividades;
+        $tema->save();
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
 
     /**

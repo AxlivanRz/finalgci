@@ -94,30 +94,7 @@
     </div>
   </div>
 </div>
-<!-- /modalInformacion-->
-<div class="modal fade" id="informacion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="informacionLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning">
-        <h5 class="modal-title" id="staticBackdropLabel">Informacion de ayuda</h5>
-        <button type="button"  class="close btn-danger" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Informacion</label>
-          Aquí va la informacion relacionada con el llenado del curso y sobre la accion de los botones
-        </div>
-      </div>
-      <div class="modal-footer bg-warning">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-      </div>
-    </div>  
-  </div>
-</div>
-<!-- /modalInformacion-->
+
 <br>
 @section('cont')
 @endsection

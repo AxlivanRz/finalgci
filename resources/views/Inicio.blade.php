@@ -11,8 +11,7 @@
                 <img style="height: 150px;" class="profile-user-img img-fluid img-circle" src="../img/joel.jpg" alt="User profile picture">
               </div>
 
-              <h3 class="profile-username text-center">Axel Iván</h3>
-
+              <h3 class="profile-username text-center">{{auth()->user()->nombre_usuario}} {{auth()->user()->apellido_paterno_usuario}}</h3>
               <p class="text-muted text-center">Ingeniería Informática</p>
 
               <ul class="list-group list-group-unbordered mb-3">
@@ -33,17 +32,15 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <strong><i class="fas fa-book mr-1"></i> Rol</strong>
-
+              <strong><i class="fas fa-book mr-1"></i> Correo Electronico </strong>
               <p class="text-muted">
-                Usuario
+                {{auth()->user()->correo_electronico}}
               </p>
-
               <hr>
-
-              <strong><i class="fas fa-book mr-1"></i>Permisos</strong>
-
-              <p class="text-muted">Ver y editar</p>
+              <strong><i class="fas fa-book mr-1"></i> CURP </strong>
+              <p class="text-muted">
+                {{auth()->user()->curp_usuario}}
+              </p>
             </div>
             <!-- /.card-body -->
           </div>

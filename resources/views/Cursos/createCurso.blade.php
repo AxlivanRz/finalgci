@@ -32,16 +32,21 @@
                             <input type="text" id="servicioCur" name="servicioCur" class="form-control" required>
                         </div>
                         <div class="form-group col-md-3">
+                            <label for="modaliadC">Tipo de modalidad</label>
+                            <input type="text" id="servicioCur" name="modalidadCur" class="form-control" required>
+                        </div>
+                        <div class="form-group col-md-3">
                             <label>Introducción</label>
                             <textarea type="text" class="form-control" id = "introduccionCur" name="introduccionCur"  required></textarea>
                         </div>
+                       
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Justificación</label>
                             <textarea type="text" class="form-control" id= "justificacionCur" name= "justificacionCur" required></textarea>
                         </div>
-                    </div>
-
-                    <div class="form-row">
                         <div class="form-group col-md-3">
                             <label>Objetivo general</label>
                             <textarea type="text" class="form-control" id="objetivoCur" name="objetivoCur" required></textarea>
@@ -54,39 +59,31 @@
                             <label for="duracion">Duración del curso</label>
                             <input type="number" id="duracionCur" name="duracionCur" class="form-control"inputmode="numeric" required>
                         </div>
+                    </div>
+
+                    <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="fechaI">Fecha de inicio</label>
                             <input type="date" class="form-control" id="fechaI" name="fechaI" data-inputmask-alias="date" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" inputmode="numeric">
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="horaE">Hora de entrada</label>
-                            <input type="time" class="form-control" id="horaE" name="horaE" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="horaS">Hora de salida</label>
-                            <input type="time" id="horaS" name="horaS" class="form-control"inputmode="numeric" required>
-                        </div> 
                         <div class="form-group col-md-4">
                             <label for="fechaF">Fecha final de curso</label>
                             <input type="date" class="form-control" id="fechaF" name="fechaF" data-inputmask-alias="date" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" inputmode="numeric">
                         </div>
-                    </div>
-                   
-                    <div class="form-row">
                         <div class="form-group col-md-5">
                             <label>Elementos didácticos para el desarollo del curso</label>
                             <textarea type="text" class="form-control" id ="elementosCur" name="elementosCur" required></textarea>
                         </div>
+                    </div>
+                   
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label>Competencias a desarrollar</label>
                             <textarea class="form-control" id="competenciasCur" name="competenciasCur" placeholder="Enter ..."required></textarea>
                         </div>
                         <div class="form-group col-md-3 ">
-                            <label>Fuentes de información</label>
-                            <textarea class="form-control" id="fuentesCur" name="fuentesCur" placeholder="Enter ..."required></textarea>
+                            <label>Observación curso</label>
+                            <textarea class="form-control" id="observacionCur" name="observacionCur" placeholder="Enter ..."required></textarea>
                         </div>
                     </div>
             </div>
@@ -99,17 +96,6 @@
         <!-- /.card-body -->
      </div>
         <!-- /.card -->
-    </div>
-    <div class="row"></div>
-    <nav aria-label="...">
-        <ul class="pagination justify-content-center" >
-        <li class="page-item active"  aria-current="page">
-            <span class="page-link" >1</span>
-        </li>
-        <li class="page-item "><a class="page-link " href="{{ url('Curso/Temas/create')}}">2</a></li>
-        <li class="page-item disable"><a class="page-link ">3</a></li> 
-        </ul>
-    </nav>
     </div>
 </section>  
 
