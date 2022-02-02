@@ -9,6 +9,7 @@ use App\Models\Curso;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+Use Carbon\Carbon;
 
 class CursoController extends Controller
 {
@@ -19,8 +20,8 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $cursosIndex = Curso::get(); 
-        return view('cursos.indexCurso', compact('cursosIndex'));
+        $curso = Curso::get(); 
+        return view('Cursos.indexCurso', compact('curso'));
     }
 
     /**
@@ -59,9 +60,9 @@ class CursoController extends Controller
             $curso->competencias_Desarrollar = $request ->competenciasCur; 
             $curso->observacion_curso = $request ->observacionCur; 
             $curso->save();
-            return view('cursos.indexCurso');
+            return redirect('/Curso');
         }else{
-            return view('cursos.indexCurso');
+            return redirect('/Curso');
         }
     }
 
@@ -84,6 +85,7 @@ class CursoController extends Controller
      */
     public function edit($id_Curso)
     {
+        
         $curso = Curso::findOrFail($id_Curso);
         return view ('cursos.editCurso', compact('curso')); 
     }
@@ -97,7 +99,7 @@ class CursoController extends Controller
      */
     public function update(Request $request, $id_Curso)
     {
-
+        
         $curso = Curso::findOrFail($id_Curso);
         $curso->id_Usuario = $request -> id_C;
         $curso->nombre_curso = $request ->nombreCur; 
@@ -133,6 +135,25 @@ class CursoController extends Controller
         return redirect('/Curso');
     }
 
+    public function inicio()
+    {
+        $curso = Curso::get(); 
+        return view('Inicio', compact('curso'));
+    }
+    public function vermas($id_Curso)
+    {
+        $instrumentos = DB::table('tbl_instrumentos_evaluacion')
+        ->get()
+        ->where('id_Curso', $id_Curso);
+        $lista = DB::table('tbl_participantes')
+        ->get()
+        ->where('id_Curso', $id_Curso);
+        $temas = DB::table('tbl_contenido_curso')
+        ->get()
+        ->where('id_Curso', $id_Curso);
+        $vercurso = Curso::findOrFail($id_Curso);
+        return view ('curso', compact(['vercurso', 'instrumentos', 'temas', 'lista'])); 
+    }
     /**
      * Ir a una nueva página para insertar un instructor y a la vez visualizar el 
      * 

@@ -34,7 +34,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                                     </div>
-                                    <input type="password" required autofocus id="contra" name = "contra" class="form-control">
+                                    <input type="password" required  aria-invalid="false" autofocus id="contra" name = "contra" class="form-control">
                                 </div>
                             </div>
                         </div>

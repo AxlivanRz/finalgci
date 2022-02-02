@@ -8,7 +8,7 @@
     <div class = "col-md-10">
       <div class="card ">
         <div class="card-header border-transparent d-flex justify-content-between align-items-center"
-        style="background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
+        style="height: 60px; background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
           <h3 class="card-title" style="color:#ffffff">Cursos</h3>
           <div class="card-tools">
             @canany(['isAdmin', 'isTeacher'])
@@ -42,11 +42,11 @@
               </tr>
               </thead>
               <tbody>
-                @foreach ( $cursosIndex as $cur )
+                @foreach ( $curso as $cur )
                 <tr>
                   <td>{{$cur->nombre_curso}}</td>
                   <td>{{$cur->tipo_servicio_curso}}</td>
-                  <td>{{$cur->objetivo_General}}</td>
+                  <td>{{$cur->objetivo_General}}</td> 
                   <td>{{$cur->duracion_horas_curso}}</td>
                   <td>{{$cur->competencias_Desarrollar}}</td>
                   <td>
@@ -56,7 +56,6 @@
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#temasModal{{$cur->id_Curso}}">
                       <i class="far fa-plus-square"></i>
                     </button> 
-                    <a type="submit" href="{{ route('Temas.show',$cur->id_Curso)}}"  class="btn btn-info"><i class="fa fa-eye"></i></a>
                   </td>
                   <td>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#instrumentosModal{{$cur->id_Curso}}">

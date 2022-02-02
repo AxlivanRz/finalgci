@@ -33,6 +33,8 @@ class User extends Authenticatable
         'correo_electronico',
         'contrasenia_usuario',
         'fecha_nacimiento',
+        'imagen_usuario',
+        'grado_max_estudios'
 
     ];
 

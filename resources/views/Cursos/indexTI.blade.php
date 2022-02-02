@@ -8,7 +8,7 @@
     <div class = "col-md-10">
       <div class="card ">
         <div class="card-header border-transparent d-flex justify-content-between align-items-center"
-        style="background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
+        style="height: 60px; background-color: #ff4e00 ; background-image: linear-gradient(315deg, #ff4e00 10%, #ffbb00 74%);">
           <h3 class="card-title" style="color:#ffffff">Temas</h3>
           <div class="card-tools">
             @canany(['isAdmin', 'isTeacher'])
@@ -70,7 +70,7 @@
     <div class = "col-md-10">
       <div class="card ">
         <div class="card-header border-transparent d-flex justify-content-between align-items-center"
-        style="background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
+        style="height: 60px; background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
           <h3 class="card-title" style="color:#ffffff">Instrumentos de evaluación</h3>
           <div class="card-tools">
             @canany(['isAdmin', 'isTeacher'])

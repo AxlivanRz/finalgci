@@ -2,7 +2,6 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header bg-light border-0">
-          
           <button type="button"  class="close btn-danger" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">x</span>
           </button>

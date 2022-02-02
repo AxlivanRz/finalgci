@@ -8,7 +8,7 @@
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img style="height: 150px;" class="profile-user-img img-fluid img-circle" src="../img/joel.jpg" alt="User profile picture">
+                <img style="height: 150px;" class="profile-user-img img-fluid img-circle" src="{{asset('storage').'/'.auth()->user()->imagen_usuario}}" alt="User profile picture">
               </div>
 
               <h3 class="profile-username text-center">{{auth()->user()->nombre_usuario}} {{auth()->user()->apellido_paterno_usuario}}</h3>
@@ -19,7 +19,7 @@
                   <b>Máximo grado de estudios</b> <a class="float-right">Licenciatura</a>
                 </li>
               </ul>
-              <a href="#" class="btn btn-primary btn-block"><b>Editar</b></a>
+              <a href="{{ route('edit',auth()->user()->id_Usuario)}}" class="btn btn-primary btn-block"><b>Editar</b></a>
             </div>
             <!-- /.card-body -->
           </div>
@@ -65,171 +65,49 @@
             <!-- Cursos en proceso -->
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/python.jpg') }}" class="w-50" alt="...">
+                @if ($curso->isNotEmpty())
+                  @foreach ( $curso as $cur )
+                    <div class="card shadow-sm mb-3" style="max-width: 100%;">
+                      <div class="row no-gutters">
+                        <div class="col-md-3">
+                          <br>
+                          <img src="{{asset('img/logoa.png') }}" style="height: 150px;">
+                        </div>                        
+                        <div class="col-md-8">
+                          <div class="card-body container-fluid">
+                              <p class="mb-5"><span class="card-title float-left h5">{{$cur->nombre_curso}}</h5></span>
+                                <a href="{{ route('Curso.info',$cur->id_Curso)}}" class="btn btn-outline-primary btn-sm float-right">Ver más...</a>
+                              </p>
+                              <div class="text">
+                                <p class="text-left">Objetivo General: {{$cur->objetivo_General}}</p>
+                                <p class="text-left">Modalidad: {{$cur->tipo_modalidad_curso}}</p>
+                                <p class="text-left">Fecha: {{$cur->fecha_inicio_curso}} - {{$cur->fecha_finalizacion_curso}}</p>                          
+                              </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Python</h5></span>
-                        <span><a href="#" class="btn btn-outline-primary stretched-link btn-sm float-right">Ver más...</a></span></p>
-                        <div class="text">
-                            <p class="text"> En este curso se inciará a conocer el entorno de Python, siendo la sintaxis, variables y ciclos.</p>
+                  @endforeach
+                @else
+                  <div class="card shadow-sm mb-3" style="max-width: 100%;">
+                    <div class="row no-gutters">
+                      <div class="col-md-3">
+                        <br>
+                        <img src="{{asset('img/logoa.png') }}" style="height: 150px;">
+                      </div>                        
+                      <div class="col-md-8">
+                        <div class="card-body container-fluid">
+                            <p class="mb-5"><span class="card-title float-left h5">Aún no hay cursos...</h5></span>
+                            </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{ asset('img/raspberry.jpg') }}" class="w-50" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Raspberry II</h5></span>
-                        <span><a href="#" class="btn btn-outline-primary stretched-link btn-sm float-right">Ver más...</a></span></p>
-                        <div class="text">
-                          <p class="text"> En este curso se implementara un proyecto de con raspberry pi</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/arduino.jpg') }}" class="mw-100" style="height: 120px" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Arduino</h5></span>
-                        <span><a href="{{url('/UnirmeCurso')}}" class="btn btn-outline-primary stretched-link btn-sm float-right">Ver más...</a></span></p>
-                        <div class="text">
-                          <p class="text">En este curso se dará a conocer el entorno del IDE de Arduino, así como, las diferentes partes de nuestro arduino Uno </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Paginación -->  
-                <div class="card-footer bg-white">
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item disabled"><a class="page-link" href="#">2</a></li>
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                @endif
+                
               </div>
               <!-- /Cursos en proceso-->
-              <!-- Cursos completados -->
-              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/python.jpg') }}" class="w-50" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Python</h5></span>
-                        <span><a href="{{ asset('files/constanciaCisco.pdf') }}" class="btn btn-outline-success btn-sm float-right" download="contanciaCisco">Constancia</a></span><span><a href="#" class="btn btn-outline-primary btn-sm float-right ml-2">Ver más...</a></span></p>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{ asset('img/raspberry.jpg') }}" class="w-50" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Raspberry</h5></span>
-                        <span><a href="{{ asset('files/constanciaCisco.pdf') }}" class="btn btn-outline-success btn-sm float-right" download="contanciaCisco">Constancia</a></span><span><a href="#" class="btn btn-outline-primary btn-sm float-right ml-2">Ver más...</a></span></p>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/arduino.jpg') }}" class="mw-100" style="height: 120px" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Arduino</h5></span>
-                        <span><a href="{{ asset('files/constanciaCisco.pdf') }}" class="btn btn-outline-success  btn-sm float-right" download="contanciaCisco">Constancia</a></span><span><a href="#" class="btn btn-outline-primary btn-sm float-right ml-2">Ver más...</a></span></p>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/cisco.jpg') }}" class="mw-100" style="height: 120px" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Arduino</h5></span>
-                        <span><a href="{{ asset('files/constanciaCisco.pdf') }}" class="btn btn-outline-success btn-sm float-right" download="contanciaCisco">Constancia</a></span><span><a href="#" class="btn btn-outline-primary btn-sm float-right ml-2">Ver más...</a></span></p>
-                        <div class="progress">
-                          <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Paginación -->  
-                <div class="card-footer bg-white">
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-              <!-- /Cursos completados -->
-              <!-- Cursos no completados -->
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="card shadow-sm mb-3" style="max-width: 100%;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4">
-                      <img src="{{asset('img/python.jpg') }}" class="w-50" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body container-fluid">
-                        <p class="mb-5"><span class="card-title float-left h5">Python</h5></span>
-                        <span class="btn btn-outline-secondary btn-sm float-right">Fecha limite: 23/05/2021</span></p>
-                        <div class="progress">
-                          <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="card shadow-sm mb-3" style="max-width: 100%;">
                   <div class="row no-gutters">
                     <div class="col-md-4">
@@ -245,21 +123,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- Paginación -->  
-                <div class="card-footer bg-white">
-                  <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                      </li>
-                      <li class="page-item"><a class="page-link" href="#">1</a></li>
-                      <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                </div>                              
               </div>
               <!-- /Cursos no completados -->  
             </div>

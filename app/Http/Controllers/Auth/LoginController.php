@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB; 
@@ -29,10 +30,8 @@ class LoginController extends Controller
             if(HASH::check($contraIn, $contraseniaU)){
                 Auth::login($user);
                 $request->session()->regenerate();
-                return redirect()
-                ->intended('/Inicio')
+                return redirect( route('Curso.inicio'))
                 ->with('status','¡Bienvenido!');
-
                 }
                 throw ValidationException::withMessages([
                     'contra' =>'Estas credenciales no coinciden con nuestros registros',
@@ -61,6 +60,10 @@ class LoginController extends Controller
         $registro -> correo_electronico = $request->correo_electronico;
         $registro -> contrasenia_usuario = HASH::make($request->contrasena);
         $registro -> fecha_nacimiento = $request->fecha;
+        $registro -> grado_max_estudios = $request->grado;
+        if ($request->hasFile('foto')) {
+            $registro['imagen_usuario']=$request->file('foto')->store('uploads', 'public');
+        }
         $registro->save();
         $registro->roles()->attach('3');
         $registro->save();    
@@ -68,6 +71,11 @@ class LoginController extends Controller
         $registro->save();
         
         return redirect('/Usuarios/login'); 
+    }
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('usuarios.editUser', compact('user'));
     }
     public function update(Request $request, $id)
     {   
@@ -80,6 +88,10 @@ class LoginController extends Controller
         $registro -> genero_usuario = $request->genero;
         $registro -> correo_electronico = $request->correo_electronico;
         $registro -> fecha_nacimiento = $request->fecha;
+        $registro -> grado_max_estudios = $request->grado;
+        if ($request->hasFile('foto')) {
+            $registro['imagen_usuario']=$request->file('foto')->store('uploads', 'public');
+        }
         if ($registro->contrasena !=null) {
             $registro->contrasenia_usuario = Hash::make($request->contrasena);
         }

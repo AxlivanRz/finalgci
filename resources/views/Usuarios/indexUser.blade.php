@@ -8,7 +8,7 @@
     <div class = "col-md-10">
       <div class="card ">
         <div class="card-header border-transparent d-flex justify-content-between align-items-center"
-        style="background-color: #09c6f9 ; background-image: linear-gradient(315deg, #09c6f9 10%, #045de9 74%);">
+        style="height: 60px; background-color: #ffbb00 ; background-image: linear-gradient(315deg, #ffbb00 10%, #ff4e00 74%);">
           <h3 class="card-title" style="color:#ffffff">Usuarios</h3>
           <div class="card-tools">
             
@@ -38,7 +38,8 @@
                   <th>Correo electrónico</th>
                   <th>Roles</th>
                   <th>Permisos</th>
-                  <th>Acciones</th>
+                  <th>Editar</th>
+                  <th>Eliminar</th>
               </tr>
               </thead>
               <tbody>
@@ -70,18 +71,14 @@
                   <span class="badge badge-danger">Sin permisos</span>
                   @endif
                   </td> 
-                  
                   <td>
-                    <a type="submit" class="btn btn-primary" href="{{ route('User.edit',$us->id_Usuario)}}">
-                        <i class="far fa-edit"></i>
-                    </a>
-                      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$us->id_Usuario}}">
-                        <i class="far fa-trash-alt"></i>
-                      </button>
+                    <a type="submit" class="btn btn-primary" href="{{ route('User.edit',$us->id_Usuario)}}"><i class="far fa-edit"></i></a>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$us->id_Usuario}}"><i class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
                 @include('usuarios.destroyUser')
-                
                 @endforeach
               </tbody>
             </table>

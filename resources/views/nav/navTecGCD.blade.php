@@ -26,7 +26,7 @@
         <div class="wrapper">
             <nav class="navbar navbar-expand-md navbar-dark" style="background-color:  #1B396A ">
                 <div class="container">
-                    <a class="navbar-brand logo" href="#homepage"><img src="{{ asset('../img/logob.png') }} " style="height: 60px;" ></a>
+                    <a class="navbar-brand logo" href="#homepage"><img src="{{ asset('../img/logob.png') }}" style="height: 60px;" ></a>
                     <span class="navbar-brand" style="font-family: 'italic'; font-size: 30px;"><u>Tec<i>GCI</i></u></span>
                     <!-- Boton Desplegable -->
                     <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar Menu">
@@ -37,11 +37,16 @@
                         <ul class="navbar-nav ml-auto">
                             @auth
                             <li class="nav-item">
-                                <a href="{{ url('/Inicio') }}" class="nav-link" style="color: white;">Inicio</a>
+                                <a href="{{ route('Curso.inicio') }}" class="nav-link" style="color: white;">Inicio</a>
                             </li>
                             @canany(['isAdmin', 'isTeacher'])
                             <li class="nav-item">
                                 <a href="{{ url('/Curso') }}" class="nav-link" style="color: white;">Cursos</a>
+                            </li>
+                            @endcanany
+                            @canany(['isAdmin'])
+                            <li class="nav-item">
+                                <a href="{{ url('/User') }}" class="nav-link" style="color: white;">Usuarios</a>
                             </li>
                             @endcanany
                             <li class="nav-item dropdown" >
@@ -53,11 +58,11 @@
                                 </a>
                                 <ul class="dropdown-menu border-0 shadow" aria-labelledby="navbarDropdown">
                                     <li><a href="/Usuario/index" class="dropdown-item" >
-                                        <font size = 1, align="center">Mi perfil</font></a></li>
+                                        <font size = 2, align="center">Mi perfil</font></a></li>
                                     <form style="display: inline" action="logout" method="POST">
                                         @csrf
                                         <a href="#" class="dropdown-item" onclick="this.closest('form').submit()">
-                                            <font size = 1, align="center">Cerrar sesión</font>
+                                            <font size = 2, align="center">Cerrar sesión</font>
                                         </a>
                                     </form>
                                 </ul>

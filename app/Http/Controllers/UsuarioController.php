@@ -125,15 +125,6 @@ class UsuarioController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $user -> rfc_usuario = $request->rfc;
-        $user -> curp_usuario = $request->curp;
-        $user -> nombre_usuario = $request->nombre;
-        $user -> apellido_paterno_usuario = $request->primer_Apellido;
-        $user -> apellido_materno_usuario = $request->segundo_Apellido;
-        $user -> genero_usuario = $request->genero;
-        $user -> correo_electronico = $request->correo_electronico;
-        $user -> fecha_nacimiento = $request->fecha;
-        $user->save();
         $user->roles()->detach();
         $user->permisos()->detach();
         if ($request->rol !=null) {
