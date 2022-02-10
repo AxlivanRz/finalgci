@@ -8,6 +8,7 @@ use App\Models\Curso;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\User;
 class ParticipantesController extends Controller
 {
     /**
@@ -21,21 +22,19 @@ class ParticipantesController extends Controller
     }
     public function lista($id_Curso)
     {   
-        $hoy = Carbon::now();
-        $carbon = new Carbon; 
-        $lista = DB::table('tbl_participantes')
+        $hoy = Carbon::now(); 
+        $participantes = DB::table('tbl_participantes')
         ->get()
-        ->where('id_Curso', $id_Curso);
+        ->where('id_Curso', $id_Curso); 
+        $usuarios = User::get();
         $vercurso = Curso::findOrFail($id_Curso);
         $inicio = $vercurso->fecha_inicio_curso;
         $final = $vercurso->fecha_finalizacion_curso;
         $inicioCarbon = Carbon::createFromFormat('Y-m-d', $inicio);
         $finalCarbon = Carbon::createFromFormat('Y-m-d', $final);
-        $lunes_viernes = ['1','2','3','4','5'];
-        $carbon = $inicioCarbon->diffInDays($finalCarbon);
-        dd($carbon);
-        return view ('participantes.index', compact(['vercurso', 'hoy']));
+        return view ('Participantes.index', compact(['vercurso', 'hoy', 'usuarios', 'participantes', 'inicioCarbon', 'finalCarbon']));
     }
+    
     /**
      * Show the form for creating a new resource.
      *

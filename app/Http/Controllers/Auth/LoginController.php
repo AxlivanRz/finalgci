@@ -75,7 +75,7 @@ class LoginController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('usuarios.editUser', compact('user'));
+        return view('Usuarios.editUser', compact('user'));
     }
     public function update(Request $request, $id)
     {   

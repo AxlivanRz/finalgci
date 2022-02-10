@@ -22,7 +22,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $user = User::get();
-        return view('usuarios.indexUser', compact('user'));
+        return view('Usuarios.indexUser', compact('user'));
     }
 
     /**
@@ -39,7 +39,7 @@ class UsuarioController extends Controller
       }
         $roles = Rol::all(); 
         $permisos2 = Permisos::all();
-        return view ('usuarios.createUser', ['roles' => $roles], ['permisos' => $permisos2]);
+        return view ('Usuarios.createUser', ['roles' => $roles], ['permisos' => $permisos2]);
     }
 
     /**

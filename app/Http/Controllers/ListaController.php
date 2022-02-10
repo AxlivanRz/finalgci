@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ListaController;
 use Illuminate\Http\Request;
 use App\Models\Lista;
-class ListaControllerController extends Controller
+class ListaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +34,9 @@ class ListaControllerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax()){
+        return "Hola";
+        }
     }
 
     /**

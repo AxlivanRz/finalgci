@@ -17,6 +17,6 @@ class Lista extends Model
     //const UPDATED_AT = 'fecha_actualizacion';
     
     protected $fillable = [
-        'id_participante', 'dia_asistencia', 'asistio'
+        'id_participante', 'dia_asistencia', 'asistio', 'id_Curso'
     ];
 }

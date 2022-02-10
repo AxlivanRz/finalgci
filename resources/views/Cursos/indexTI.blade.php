@@ -49,7 +49,7 @@
                     </button> 
                   </td>
                 </tr>
-                @include('temas.edit')
+                @include('Temas.edit')
                 @endforeach
               </tbody>
             </table>
@@ -113,7 +113,7 @@
                     </button> 
                   </td>
                 </tr>
-                @include('instrumentos.edit')
+                @include('Instrumentos.edit')
                 @endforeach
               </tbody>
             </table>

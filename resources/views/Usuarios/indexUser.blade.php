@@ -78,7 +78,7 @@
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$us->id_Usuario}}"><i class="far fa-trash-alt"></i></button>
                   </td>
                 </tr>
-                @include('usuarios.destroyUser')
+                @include('Usuarios.destroyUser')
                 @endforeach
               </tbody>
             </table>

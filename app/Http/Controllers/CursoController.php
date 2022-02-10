@@ -31,7 +31,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        return view('cursos.createCurso');
+        return view('Cursos.createCurso');
     }
 
     /**
@@ -87,7 +87,7 @@ class CursoController extends Controller
     {
         
         $curso = Curso::findOrFail($id_Curso);
-        return view ('cursos.editCurso', compact('curso')); 
+        return view ('Cursos.editCurso', compact('curso')); 
     }
 
     /**

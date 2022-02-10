@@ -67,8 +67,8 @@
                     <a type="submit" href="{{ route('select.instructor',$cur->id_Curso)}}"  class="btn btn-primary float-right"><i class="far fa-edit"></i></a>
                   </td>
                 </tr>
-                @include('temas.create')
-                @include('instrumentos.create')
+                @include('Temas.create')
+                @include('Instrumentos.create')
                 @endforeach
               </tbody>
             </table>
