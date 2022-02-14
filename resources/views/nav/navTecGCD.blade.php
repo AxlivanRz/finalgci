@@ -58,7 +58,7 @@
                                     @endauth
                                 </a>
                                 <ul class="dropdown-menu border-0 shadow" aria-labelledby="navbarDropdown">
-                                    <li><a href="/Usuario/index" class="dropdown-item" >
+                                    <li><a href="{{route('user.perfil',Auth::user()->id_Usuario)}}" class="dropdown-item" >
                                         <font size = 2, align="center">Mi perfil</font></a></li>
                                     <form style="display: inline" action="logout" method="POST">
                                         @csrf

@@ -45,14 +45,14 @@
             <div class="card-body">
               <strong><i class="fas fa-book mr-1"  style = "color: rgb(21, 101, 250);"></i>Nombre</strong>
               <p class="text-muted">
-                Ing. David Cobos Justo
+                <a href="{{route('instructor.perfil', $vercurso->id_Usuario)}}">Ing. David Cobos Justo</a>
               </p>
               <hr>
               <strong><i class="fas fa-book mr-1"  style = "color: rgb(21, 101, 250);"></i>Profesión</strong>
-              <p class="text-muted">Aquí va una profesión...</p>
+              <p class="text-muted">{{$academico->nivel_academico}}</p>
               <hr>
               <strong><i class="fas fa-book mr-1"  style = "color: rgb(21, 101, 250);"></i>Cédula profesional</strong>
-              <p class="text-muted">Aquí va una cédula...</p>
+              <p class="text-muted">{{$academico->cedula_profesional}}</p>
             </div>
             <!-- /.card-body -->
           </div>

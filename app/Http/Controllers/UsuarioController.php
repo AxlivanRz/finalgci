@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Constancia;
+use App\Models\Curriculum;
+use App\Models\ExperienciaDocente;
+use App\Models\ExperienciaLaboral;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\HASH;
@@ -10,6 +14,7 @@ use App\Models\Rol;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Permisos;
+use Illuminate\Validation\ValidationException;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 
 class UsuarioController extends Controller
@@ -165,5 +170,53 @@ class UsuarioController extends Controller
      * 
      * @param \Illuminate\Http\Request
      */
-   
+    public function findUser(Request $request)
+    {
+        $user = User::where('curp_usuario', $request->curp_usuario)->first();
+
+        if (empty($user)) {
+            throw ValidationException::withMessages([
+                'general_user' => 'Este CURP no conciden con nuestro registros',
+            ]);
+        } else {
+            $constancias = Constancia::where('id_Usuario', 'LIKE', $user->id_usuario)->first();
+
+            if (empty($constancias)) {
+                throw ValidationException::withMessages([
+                    'constancia' => 'El usuario no dispone de constancia actualmente',
+                ]);
+                return compact('user');
+            } else {
+                return [compact('user'), compact('constancias')];
+            }
+        }
+    }
+
+    /**
+     * Show perfil of user
+     * 
+     * @param int id
+     */
+    public function perfil($idUser)
+    {
+        $user = User::findOrFail($idUser)->first();
+        if (empty($user)) {
+            throw ValidationException::withMessages([
+                "general_data_user" => 'No se encontraron datos del usuario',
+            ]);
+        } else {
+
+            $curriculum = Curriculum::where('id_Usuario', $user->id_Usuario)->first();
+            if (empty($curriculum)) {
+                throw ValidationException::withMessages([
+                    "general_data_user" => 'No se encontraron datos del usuario',
+                ]);
+                return redirect('user.perfil', compact('user'));
+            } else {
+                $laboral = ExperienciaLaboral::where('id_Curriculum', $curriculum->id_curriculum)->first();
+                $docente = ExperienciaDocente::where('id_Curriculum', $curriculum->id_curriculum)->first();
+                return redirect('user.perfil', compact('user'), compact('laboral'), compact('docente'));
+            }
+        }
+    }
 }

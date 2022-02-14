@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Curso;
+use App\Models\Curriculum;
+use App\Models\ExperienciaDocente;
+use App\Models\ExperienciaLaboral;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\ValidationException;
 Use Carbon\Carbon;
 
 class CursoController extends Controller
@@ -180,5 +184,31 @@ class CursoController extends Controller
         ->where('rfc_usuario', 'LIKE', $get_rfcUser);
         $curso->id_Usuario = $have_id->get();
         return redirect('/Curso');
+    }
+
+    /**
+     * Mostrar el instructor del curso
+     * 
+     * @param int $id_Usuario del curso
+     * @param \Illuminate\Http\Request
+     */
+    public function showInstructor($idUser)
+    {
+        $usuario = User::findOrFail($idUser)->first();
+        $edad = Carbon::parse($usuario->fecha_nacimiento)->age;
+        $curriculum = Curriculum::where('id_Usuario', $usuario->id_usuario);
+        $actividades = ExperienciaLaboral::where('id_Curriculum', $curriculum->id_curriculum)->get();
+        if (empty($actividades)) {
+            throw ValidationException::withMessages([
+                'laborales_message' => 'El instructor no tiene experiencia previa'
+            ]);
+        }
+        $materias = ExperienciaDocente::where('id_Curriculum', $curriculum->id_curriculum)->get();
+        if (empty($materias)) {
+            throw ValidationException::withMessages([
+                'materias_message' => 'El instructor no ha impartido materias previamente'
+            ]);
+        }
+        return view('user.show', compact('usuario'), compact('actividades'), compact('materias'), compact('edad'));
     }
 }

@@ -16,7 +16,7 @@
 
               <ul class="list-group list-group-unbordered mb-3">
                 <li class="list-group-item">
-                  <b>Máximo grado de estudios</b> <a class="float-right">Licenciatura</a>
+                  <b>Máximo grado de estudios</b> <a class="float-right">{{auth()->user()->grado_max_estudio}}</a>
                 </li>
               </ul>
               <a href="{{ route('edit',auth()->user()->id_Usuario)}}" class="btn btn-primary btn-block"><b>Editar</b></a>
